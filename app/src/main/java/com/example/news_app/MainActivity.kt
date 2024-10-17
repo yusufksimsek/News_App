@@ -3,6 +3,7 @@ package com.example.news_app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
@@ -22,7 +23,9 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             News_AppTheme {
-                OnBoardingScreen()
+                Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)){
+                    OnBoardingScreen()
+                }
             }
         }
     }
