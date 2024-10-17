@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.example.news_app.presentation.onboarding.OnBoardingScreen
 import com.example.news_app.ui.theme.News_AppTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,12 +22,7 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             News_AppTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Text(text = "Welcome to News App")
-                }
+                OnBoardingScreen()
             }
         }
     }
