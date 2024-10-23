@@ -1,4 +1,4 @@
-package com.example.news_app.data.remote.dto
+package com.example.news_app.domain.model
 
 data class Source(
     val id: String,
