@@ -3,13 +3,17 @@ package com.example.news_app.presentation.navgraph
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.news_app.R
+import com.example.news_app.presentation.home.HomeScreen
+import com.example.news_app.presentation.home.HomeViewModel
 import com.example.news_app.presentation.onboarding.OnBoardingScreen
 import com.example.news_app.presentation.onboarding.OnBoardingViewModel
 
@@ -36,7 +40,9 @@ fun NavGraph(
             startDestination = Route.NewsNavigatorScreen.route
         ){
             composable(route = Route.NewsNavigatorScreen.route){
-                Text(text = "News Navigator Screen")
+                val viewModel: HomeViewModel = hiltViewModel()
+                val articles = viewModel.news.collectAsLazyPagingItems()
+                HomeScreen(articles = articles, navigate = {})
             }
         }
     }
