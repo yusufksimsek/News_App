@@ -7,7 +7,7 @@ class DeleteArticle (
     private val newsDao: NewsDao
 ) {
 
-    operator fun invoke(article: Article){
+    suspend operator fun invoke(article: Article){
         newsDao.delete(article)
     }
 }

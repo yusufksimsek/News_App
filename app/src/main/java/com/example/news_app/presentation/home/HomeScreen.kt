@@ -32,22 +32,29 @@ import com.example.news_app.presentation.navgraph.Route
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(articles: LazyPagingItems<Article>, navigate:(String) -> Unit) {
+fun HomeScreen(
+    articles: LazyPagingItems<Article>,
+    navigateToSearch: () -> Unit,
+    navigateToDetails: (Article) -> Unit
+) {
     val titles by remember {
         derivedStateOf {
-            if(articles.itemCount > 10){
+            if (articles.itemCount > 10) {
                 articles.itemSnapshotList.items
                     .slice(IntRange(start = 0, endInclusive = 9))
                     .joinToString(separator = " \uD83d\uDFE5 ") {
                         it.title
                     }
-            }else{
+            } else {
                 ""
             }
         }
     }
 
-    Column(modifier = Modifier.fillMaxSize().padding(top = mediumPadding).statusBarsPadding()) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(top = mediumPadding)
+        .statusBarsPadding()) {
         Image(
             painter = painterResource(id = R.drawable.logo),
             contentDescription = null,
@@ -68,7 +75,7 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate:(String) -> Unit) {
             onValueChange = {},
             onSearch = {},
             onClick = {
-                navigate(Route.SearchScreen.route)
+                navigateToSearch()
             }
         )
 
@@ -88,7 +95,7 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate:(String) -> Unit) {
             modifier = Modifier.padding(horizontal = mediumPadding),
             articles = articles,
             onClick = {
-                navigate(Route.DetailsScreen.route)
+                navigateToDetails(it)
             }
         )
 

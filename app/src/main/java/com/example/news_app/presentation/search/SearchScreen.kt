@@ -7,11 +7,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.news_app.domain.model.Article
 import com.example.news_app.presentation.Dimens.mediumPadding
 import com.example.news_app.presentation.common.ArticlesList
 import com.example.news_app.presentation.common.SearchBar
@@ -22,7 +20,7 @@ import com.example.news_app.presentation.navgraph.Route
 fun SearchScreen(
     state: SearchState,
     event:(SearchEvent) -> Unit,
-    navigate:(String) -> Unit
+    navigateToDetails:(Article) -> Unit
 ) {
 
     Column(
@@ -45,7 +43,7 @@ fun SearchScreen(
             ArticlesList(
                 articles = articles,
                 onClick = {
-                    navigate(Route.DetailsScreen.route)
+                    navigateToDetails(it)
                 }
             )
         }
