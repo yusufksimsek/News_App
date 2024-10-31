@@ -1,6 +1,10 @@
 package com.example.news_app.di
 
 import android.app.Application
+import androidx.room.Room
+import com.example.news_app.data.local.NewsDao
+import com.example.news_app.data.local.NewsDatabase
+import com.example.news_app.data.local.NewsTypeConvertor
 import com.example.news_app.data.manager.LocalUserManagerImpl
 import com.example.news_app.data.remote.NewsApi
 import com.example.news_app.data.repository.NewsRepositoryImpl
@@ -66,5 +70,23 @@ object AppModule {
             searchNews = SearchNews(newsRepository)
         )
     }
+
+    @Provides
+    @Singleton
+    fun provideNewsDatabase(
+        application: Application
+    ): NewsDatabase {
+        return Room.databaseBuilder(
+            application, NewsDatabase::class.java, "news_db"
+        ).addTypeConverter(NewsTypeConvertor())
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsDao(
+        newsDatabase: NewsDatabase
+    ): NewsDao = newsDatabase.newsDao
 
 }
