@@ -1,5 +1,6 @@
 package com.example.news_app.presentation.common
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,6 +15,7 @@ import com.example.news_app.domain.model.Article
 import com.example.news_app.presentation.Dimens.ExtraSmallPadding2
 import com.example.news_app.presentation.Dimens.mediumPadding
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun ArticlesList(
     modifier: Modifier = Modifier,
@@ -26,8 +28,9 @@ fun ArticlesList(
             contentPadding = PaddingValues(all = ExtraSmallPadding2)
         ) {
             items(count = articles.size,) {
-                val articles = articles[it]
-                    ArticleCard(article = articles, onClick = { onClick(articles) } )
+                articles[it]?.let { article ->
+                    ArticleCard(article = article, onClick = { onClick(article) })
+                }
                 }
         }
 }
@@ -47,8 +50,8 @@ fun ArticlesList(
             contentPadding = PaddingValues(all = ExtraSmallPadding2)
         ) {
             items(count = articles.itemCount,) {
-                articles[it]?.let {
-                    ArticleCard(article = it, onClick = { onClick(it) } )
+                articles[it]?.let {article ->
+                    ArticleCard(article = article, onClick = { onClick(article) } )
                 }
             }
         }
