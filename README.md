@@ -7,3 +7,5 @@
 ![news_07](https://github.com/user-attachments/assets/5f07b56b-eb2c-4e56-97e8-cb2b83159c02)
 ![news_08](https://github.com/user-attachments/assets/590933d0-4e99-42b0-858f-6e74080fdb23)
 ![news_09](https://github.com/user-attachments/assets/a7c0f8b1-e0c1-483f-bb83-0faf7be7a4ac)
+![news_10](https://github.com/user-attachments/assets/26b62cb5-21dd-4077-8dc0-5dc19b1e323c)
+![news_11](https://github.com/user-attachments/assets/7ebf22d7-0572-4320-99d6-244c101e3745)
