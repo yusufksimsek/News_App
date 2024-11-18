@@ -9,6 +9,9 @@ import com.example.news_app.domain.model.Article
 import com.example.news_app.domain.usecases.news.NewsUseCases
 import com.example.news_app.domain.usecases.news.UpsertArticle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,14 +23,15 @@ class DetailsViewModel @Inject constructor(
     var sideEffect by mutableStateOf<String?>(null)
         private set
 
-    fun onEvent(event: DetailsEvent){
-        when(event){
+    @OptIn(DelicateCoroutinesApi::class)
+    fun onEvent(event: DetailsEvent) {
+        when (event) {
             is DetailsEvent.UpsertDeleteArticle -> {
-                viewModelScope.launch {
+                GlobalScope.launch(Dispatchers.IO) {
                     val article = newsUseCases.selectArticle(event.article.url)
-                    if (article == null){
+                    if (article == null) {
                         upsertArticle(event.article)
-                    }else{
+                    } else {
                         deleteArticle(event.article)
                     }
                 }
