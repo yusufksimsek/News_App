@@ -50,37 +50,49 @@ fun NewsNavigator() {
         mutableStateOf(0)
     }
 
-    selectedItem = when (backstackState?.destination?.route) {
-        Route.HomeScreen.route -> 0
-        Route.SearchScreen.route -> 1
-        Route.BookmarkScreen.route -> 2
-        else -> 0
+    selectedItem = remember(key1 = backstackState){
+        when (backstackState?.destination?.route) {
+            Route.HomeScreen.route -> 0
+            Route.SearchScreen.route -> 1
+            Route.BookmarkScreen.route -> 2
+            else -> 0
+        }
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
-        NewsBottomNavigation(
-            items = bottomNavigationItems,
-            selected = selectedItem,
-            onItemClick = { index ->
-                when (index) {
-                    0 -> navigateToTab(
-                        navController = navController,
-                        route = Route.HomeScreen.route
-                    )
+    val isBottomBarVisible = remember(key1 = backstackState){
+        backstackState?.destination?.route == Route.HomeScreen.route ||
+            backstackState?.destination?.route == Route.SearchScreen.route ||
+                backstackState?.destination?.route == Route.BookmarkScreen.route
 
-                    1 -> navigateToTab(
-                        navController = navController,
-                        route = Route.SearchScreen.route
-                    )
+    }
 
-                    2 -> navigateToTab(
-                        navController = navController,
-                        route = Route.BookmarkScreen.route
-                    )
-                }
+    Scaffold(modifier = Modifier.fillMaxSize(),
+        bottomBar = {
+            if (isBottomBarVisible) {
+                NewsBottomNavigation(
+                    items = bottomNavigationItems,
+                    selected = selectedItem,
+                    onItemClick = { index ->
+                        when (index) {
+                            0 -> navigateToTab(
+                                navController = navController,
+                                route = Route.HomeScreen.route
+                            )
+
+                            1 -> navigateToTab(
+                                navController = navController,
+                                route = Route.SearchScreen.route
+                            )
+
+                            2 -> navigateToTab(
+                                navController = navController,
+                                route = Route.BookmarkScreen.route
+                            )
+                        }
+                    }
+                )
             }
-        )
-    }
+        }
     ) {
         val bottomPadding = it.calculateBottomPadding()
         NavHost(
