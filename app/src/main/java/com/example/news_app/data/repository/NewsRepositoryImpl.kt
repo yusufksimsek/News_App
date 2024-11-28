@@ -50,7 +50,7 @@ class NewsRepositoryImpl(
     }
 
     override fun selectArticles(): Flow<List<Article>> {
-        return newsDao.getArticles().onEach { it.reversed() }
+        return newsDao.getArticles()
     }
 
     override suspend fun selectArticle(url: String): Article? {
